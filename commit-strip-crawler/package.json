@@ -1,0 +1,12 @@
+{
+  "name": "commit-strip-crawler",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "jsdom": "^19.0.0",
+    "slugify": "^1.6.4",
+    "uuid": "^8.3.2"
+  }
+}
