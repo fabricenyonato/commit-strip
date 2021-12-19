@@ -122,12 +122,12 @@ async function saveStrip(url) {
 
 function combine() {
   const files = readdirSync('data')
-    .filter(file => ['urls.json', 'commit-strip.json'].includes(file))
+    .filter(file => !['urls.json', 'commit-strip.json'].includes(file))
     .map(file => {
       const json = readFileSync(`data/${file}`)
       return JSON.parse(json)
     })
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
 
   writeFileSync('data/commit-strip.json', JSON.stringify(files))
 }
