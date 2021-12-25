@@ -9,19 +9,28 @@ class CommitStripRepositoryImpl implements CommitStripRepository {
   const CommitStripRepositoryImpl({ required this.remoteDataSource });
 
   @override
-  Future<Result<List<entities.Post>, dynamic>> posts() async {
+  Future<Result<List<entities.Post>, dynamic>> posts({
+    required String languageCode,
+  }) async {
     final data = await remoteDataSource.posts();
 
     return data.when(
       failure: (error) => Result.failure(error),
       success: (data) {
         final posts = data
-          .map((item) => entities.Post(
-            title: item.title,
-            image: item.image,
-            thumbnail: item.thumbnail,
-            id: item.id,
-          ))
+          .map((item) {
+            final lang =
+              languageCode == 'en' ? null : item.langs.fr;
+
+            return entities.Post(
+              id: item.id,
+              date: item.date,
+              title: lang?.title ?? item.title,
+              image: lang?.image ?? item.image,
+              thumbnail: lang?.thumbnail ?? item.thumbnail,
+              url: lang?.url ?? item.url,
+            );
+          })
           .toList();
 
         return Result.success(posts);

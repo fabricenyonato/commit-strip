@@ -8,6 +8,8 @@ part 'home_page_data.freezed.dart';
 class HomePageData with _$HomePageData {
   const factory HomePageData({
     required DataState<List<Post>> posts,
+    required bool isFavorites,
+    required String lang,
   })
     = _HomePageData;
 }

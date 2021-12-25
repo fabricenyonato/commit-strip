@@ -18,19 +18,21 @@ class _$PostTearOff {
   const _$PostTearOff();
 
   _Post call(
-      {required String id,
-      required String title,
-      required String image,
-      required DateTime date,
-      required String url,
-      String? thumbnail}) {
+      {@HiveField(0) required String id,
+      @HiveField(1) required String title,
+      @HiveField(2) required String image,
+      @HiveField(3) String? thumbnail,
+      @HiveField(4) required DateTime date,
+      @HiveField(5) required String url,
+      @HiveField(6) required String lang}) {
     return _Post(
       id: id,
       title: title,
       image: image,
+      thumbnail: thumbnail,
       date: date,
       url: url,
-      thumbnail: thumbnail,
+      lang: lang,
     );
   }
 }
@@ -40,12 +42,20 @@ const $Post = _$PostTearOff();
 
 /// @nodoc
 mixin _$Post {
+  @HiveField(0)
   String get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get image => throw _privateConstructorUsedError;
-  DateTime get date => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get thumbnail => throw _privateConstructorUsedError;
+  @HiveField(4)
+  DateTime get date => throw _privateConstructorUsedError;
+  @HiveField(5)
+  String get url => throw _privateConstructorUsedError;
+  @HiveField(6)
+  String get lang => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostCopyWith<Post> get copyWith => throw _privateConstructorUsedError;
@@ -56,12 +66,13 @@ abstract class $PostCopyWith<$Res> {
   factory $PostCopyWith(Post value, $Res Function(Post) then) =
       _$PostCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String title,
-      String image,
-      DateTime date,
-      String url,
-      String? thumbnail});
+      {@HiveField(0) String id,
+      @HiveField(1) String title,
+      @HiveField(2) String image,
+      @HiveField(3) String? thumbnail,
+      @HiveField(4) DateTime date,
+      @HiveField(5) String url,
+      @HiveField(6) String lang});
 }
 
 /// @nodoc
@@ -77,9 +88,10 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
     Object? id = freezed,
     Object? title = freezed,
     Object? image = freezed,
+    Object? thumbnail = freezed,
     Object? date = freezed,
     Object? url = freezed,
-    Object? thumbnail = freezed,
+    Object? lang = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -94,6 +106,10 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      thumbnail: thumbnail == freezed
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -102,10 +118,10 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: thumbnail == freezed
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
+      lang: lang == freezed
+          ? _value.lang
+          : lang // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -116,12 +132,13 @@ abstract class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       __$PostCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String title,
-      String image,
-      DateTime date,
-      String url,
-      String? thumbnail});
+      {@HiveField(0) String id,
+      @HiveField(1) String title,
+      @HiveField(2) String image,
+      @HiveField(3) String? thumbnail,
+      @HiveField(4) DateTime date,
+      @HiveField(5) String url,
+      @HiveField(6) String lang});
 }
 
 /// @nodoc
@@ -138,9 +155,10 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? image = freezed,
+    Object? thumbnail = freezed,
     Object? date = freezed,
     Object? url = freezed,
-    Object? thumbnail = freezed,
+    Object? lang = freezed,
   }) {
     return _then(_Post(
       id: id == freezed
@@ -155,6 +173,10 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      thumbnail: thumbnail == freezed
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -163,10 +185,10 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: thumbnail == freezed
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
+      lang: lang == freezed
+          ? _value.lang
+          : lang // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -175,29 +197,39 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
 
 class _$_Post implements _Post {
   const _$_Post(
-      {required this.id,
-      required this.title,
-      required this.image,
-      required this.date,
-      required this.url,
-      this.thumbnail});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.title,
+      @HiveField(2) required this.image,
+      @HiveField(3) this.thumbnail,
+      @HiveField(4) required this.date,
+      @HiveField(5) required this.url,
+      @HiveField(6) required this.lang});
 
   @override
+  @HiveField(0)
   final String id;
   @override
+  @HiveField(1)
   final String title;
   @override
+  @HiveField(2)
   final String image;
   @override
+  @HiveField(3)
+  final String? thumbnail;
+  @override
+  @HiveField(4)
   final DateTime date;
   @override
+  @HiveField(5)
   final String url;
   @override
-  final String? thumbnail;
+  @HiveField(6)
+  final String lang;
 
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, image: $image, date: $date, url: $url, thumbnail: $thumbnail)';
+    return 'Post(id: $id, title: $title, image: $image, thumbnail: $thumbnail, date: $date, url: $url, lang: $lang)';
   }
 
   @override
@@ -208,9 +240,10 @@ class _$_Post implements _Post {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.thumbnail, thumbnail));
+            const DeepCollectionEquality().equals(other.lang, lang));
   }
 
   @override
@@ -219,9 +252,10 @@ class _$_Post implements _Post {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(thumbnail),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(thumbnail));
+      const DeepCollectionEquality().hash(lang));
 
   @JsonKey(ignore: true)
   @override
@@ -231,25 +265,35 @@ class _$_Post implements _Post {
 
 abstract class _Post implements Post {
   const factory _Post(
-      {required String id,
-      required String title,
-      required String image,
-      required DateTime date,
-      required String url,
-      String? thumbnail}) = _$_Post;
+      {@HiveField(0) required String id,
+      @HiveField(1) required String title,
+      @HiveField(2) required String image,
+      @HiveField(3) String? thumbnail,
+      @HiveField(4) required DateTime date,
+      @HiveField(5) required String url,
+      @HiveField(6) required String lang}) = _$_Post;
 
   @override
+  @HiveField(0)
   String get id;
   @override
+  @HiveField(1)
   String get title;
   @override
+  @HiveField(2)
   String get image;
   @override
+  @HiveField(3)
+  String? get thumbnail;
+  @override
+  @HiveField(4)
   DateTime get date;
   @override
+  @HiveField(5)
   String get url;
   @override
-  String? get thumbnail;
+  @HiveField(6)
+  String get lang;
   @override
   @JsonKey(ignore: true)
   _$PostCopyWith<_Post> get copyWith => throw _privateConstructorUsedError;

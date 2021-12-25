@@ -1,0 +1,10 @@
+{
+  "title": "Title",
+  "publicationDate": "Publication date",
+  "link": "Link",
+  "languages": "languages",
+  "details": "Details",
+  "errorTitile": "Something wrong",
+  "errorDescription": "Can't load data from remote server. Check your internet connection and retry",
+  "retry": "Retry"
+}

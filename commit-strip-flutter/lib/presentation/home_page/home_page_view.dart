@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commit_strip/domain/entities/post.dart';
 import 'package:commit_strip/presentation/home_page/home_page_data.dart';
+import 'package:commit_strip/presentation/widgets/star.dart';
+import 'package:commit_strip/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const thumbnailRatio = 492 / 940;
 const bottomBarHeightRatio = 18.9 / 100;
@@ -24,10 +27,10 @@ class _PostContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = Padding(
       padding: const EdgeInsets.symmetric(
-        // horizontal: 0,
-        // vertical: 0,
-        horizontal: 16,
-        vertical: 8,
+        horizontal: 0,
+        vertical: 0,
+        // horizontal: 16,
+        // vertical: 8,
       ),
       child: LayoutBuilder(
         builder: (_, box) {
@@ -64,10 +67,10 @@ class _PostContainer extends StatelessWidget {
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Color(0xff1f1f1f),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(8),
-              ),
+              // borderRadius: BorderRadius.only(
+              //   bottomLeft: Radius.circular(8),
+              //   bottomRight: Radius.circular(8),
+              // ),
             ),
           ),
         ),
@@ -125,8 +128,8 @@ class _PostPlaceholder extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Colors.grey.shade400,
-          borderRadius: BorderRadius.circular(8),
+          color: Colors.grey.shade600,
+          // borderRadius: BorderRadius.circular(8),
         ),
       ),
     );
@@ -164,7 +167,7 @@ class _Post extends StatelessWidget {
               image: image,
               fit: BoxFit.fill,
             ),
-            borderRadius: BorderRadius.circular(8),
+            // borderRadius: BorderRadius.circular(8),
           ),
         ),
       ),
@@ -214,77 +217,129 @@ class _SuccessView extends StatelessWidget {
   }
 }
 
-class HomePageView extends StatelessWidget {
-  final HomePageData data;
-  final void Function(Post) onPostTap;
+class _ErrorView extends StatelessWidget {
+  final Object error;
+  final VoidCallback retry;
 
-  const HomePageView({
+  const _ErrorView({
     Key? key,
-    required this.data,
-    required this.onPostTap,
+    required this.error,
+    required this.retry,
   })
     : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final topPadding = MediaQuery.of(context).padding.top;
-    final double appBarHeight = 50 + (16 * 2) + topPadding;
+    final t = locale(context);
 
-    final appBar = PreferredSize(
-      preferredSize: Size.fromHeight(appBarHeight),
-      child: Container(
-        color: const Color(0xff2B3F6B),
-        padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          top: topPadding + 16,
-          bottom: 8,
-        ),
-        child: Image.asset(
-          'assets/logo.png',
-          alignment: Alignment.center,
-          height: 50,
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const FaIcon(FontAwesomeIcons.exclamationTriangle),
+            const SizedBox(height: 16),
+
+            Text(
+              t.errorTitile,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+
+            const SizedBox(height: 8),
+            Text(
+              t.errorDescription,
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: retry,
+              child: Text(t.retry),
+            ),
+          ],
         ),
       ),
     );
+  }
+}
 
-    final body = data.posts.when(
-      loading: () => const _LoadingView(),
-      error: (error) => Center(
-        child: Text(error.toString()),
-      ),
-      success: (posts) =>
-        _SuccessView(
-          posts: posts,
-          onPostTap: onPostTap,
-        ),
-    );
+class HomePageView extends StatelessWidget {
+  final HomePageData data;
+  final void Function(Post) onPostTap;
+  final void Function() toggleFavorites;
+  final void Function(String) changeLang;
+  final VoidCallback refresh;
 
-    final navigation = BottomNavigationBar(
-      currentIndex: 0,
-      onTap: (index) {},
-      unselectedFontSize: 14,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
+  const HomePageView({
+    Key? key,
+    required this.data,
+    required this.onPostTap,
+    required this.toggleFavorites,
+    required this.changeLang,
+    required this.refresh,
+  })
+    : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Image.asset('assets/logo.png'),
+      actions: [
+        IconButton(
+          onPressed: () => _langs(context),
+          icon: const FaIcon(FontAwesomeIcons.language),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.star_outline),
-          label: 'Favorites',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.menu_outlined),
-          label: 'More',
+        IconButton(
+          onPressed: toggleFavorites,
+          icon: Star(isFavorite: data.isFavorites),
         ),
       ],
     );
 
+    final body = data.posts.when(
+      loading: () => const _LoadingView(),
+      error: (error) => _ErrorView(
+        error: error,
+        retry: refresh,
+      ),
+      success: (posts) => _SuccessView(
+        posts: posts,
+        onPostTap: onPostTap,
+      ),
+    );
+
     return Scaffold(
-      backgroundColor: const Color(0xff2B3F6B),
       appBar: appBar,
       body: body,
-      bottomNavigationBar: navigation,
     );
+  }
+
+  void _langs(BuildContext context) async {
+    const langs = [
+      { 'label': 'English', 'code': 'en' },
+      { 'label': 'Français', 'code': 'fr' },
+    ];
+
+    final code = await showModalBottomSheet<String>(
+      context: context,
+      builder: (_) => Wrap(
+        children: [
+          for (final lang in langs)
+            ListTile(
+              title: Text(lang['label']!),
+              onTap: () => Navigator.pop(context, lang['code']!),
+            ),
+        ],
+      ),
+    );
+
+    if (code == null) return;
+
+    changeLang(code);
   }
 }

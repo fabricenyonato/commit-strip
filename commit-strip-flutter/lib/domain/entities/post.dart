@@ -8,6 +8,8 @@ class Post with _$Post {
     required String id,
     required String title,
     required String image,
+    required DateTime date,
+    required String url,
     String? thumbnail,
   })
     = _Post;

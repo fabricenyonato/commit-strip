@@ -7,6 +7,8 @@ class GetPostsUseCase {
 
   GetPostsUseCase({ required this.repository });
 
-  Future<Result<List<Post>, dynamic>> call() =>
-    repository.posts();
+  Future<Result<List<Post>, dynamic>> call({
+    required String languageCode,
+  }) =>
+    repository.posts(languageCode: languageCode);
 }

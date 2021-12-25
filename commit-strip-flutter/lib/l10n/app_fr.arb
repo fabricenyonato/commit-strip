@@ -1,0 +1,10 @@
+{
+  "title": "Titre",
+  "publicationDate": "Dete de publication",
+  "link": "Lien",
+  "languages": "Langues",
+  "details": "Détails",
+  "errorTitile": "Quelque chose ne va pas",
+  "errorDescription": "Impossible de charger les données du serveur distant. Vérifiez votre connexion internet et réessayez",
+  "retry": "Réessayer"
+}
