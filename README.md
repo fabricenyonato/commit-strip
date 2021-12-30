@@ -1,6 +1,6 @@
 # Commit Strip Flutter App
 
-Strips from [https://www.commitstrip.com/](https://www.commitstrip.com/).
+Strips from [https://www.commitstrip.com/](https://www.commitstrip.com/).<br>
 APK [here](https://drive.google.com/file/d/1aavYLvWmE5ZBWDfBnEq0XwpPoBNM3eBF/view?usp=sharing).
 
 <p float="left">
