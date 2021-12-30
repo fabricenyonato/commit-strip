@@ -18,12 +18,9 @@ class _$HomePageDataTearOff {
   const _$HomePageDataTearOff();
 
   _HomePageData call(
-      {required DataState<List<Post>> posts,
-      required bool isFavorites,
-      required String lang}) {
+      {required DataState<List<Post>> posts, required String lang}) {
     return _HomePageData(
       posts: posts,
-      isFavorites: isFavorites,
       lang: lang,
     );
   }
@@ -35,7 +32,6 @@ const $HomePageData = _$HomePageDataTearOff();
 /// @nodoc
 mixin _$HomePageData {
   DataState<List<Post>> get posts => throw _privateConstructorUsedError;
-  bool get isFavorites => throw _privateConstructorUsedError;
   String get lang => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -48,7 +44,7 @@ abstract class $HomePageDataCopyWith<$Res> {
   factory $HomePageDataCopyWith(
           HomePageData value, $Res Function(HomePageData) then) =
       _$HomePageDataCopyWithImpl<$Res>;
-  $Res call({DataState<List<Post>> posts, bool isFavorites, String lang});
+  $Res call({DataState<List<Post>> posts, String lang});
 
   $DataStateCopyWith<List<Post>, $Res> get posts;
 }
@@ -64,7 +60,6 @@ class _$HomePageDataCopyWithImpl<$Res> implements $HomePageDataCopyWith<$Res> {
   @override
   $Res call({
     Object? posts = freezed,
-    Object? isFavorites = freezed,
     Object? lang = freezed,
   }) {
     return _then(_value.copyWith(
@@ -72,10 +67,6 @@ class _$HomePageDataCopyWithImpl<$Res> implements $HomePageDataCopyWith<$Res> {
           ? _value.posts
           : posts // ignore: cast_nullable_to_non_nullable
               as DataState<List<Post>>,
-      isFavorites: isFavorites == freezed
-          ? _value.isFavorites
-          : isFavorites // ignore: cast_nullable_to_non_nullable
-              as bool,
       lang: lang == freezed
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
@@ -98,7 +89,7 @@ abstract class _$HomePageDataCopyWith<$Res>
           _HomePageData value, $Res Function(_HomePageData) then) =
       __$HomePageDataCopyWithImpl<$Res>;
   @override
-  $Res call({DataState<List<Post>> posts, bool isFavorites, String lang});
+  $Res call({DataState<List<Post>> posts, String lang});
 
   @override
   $DataStateCopyWith<List<Post>, $Res> get posts;
@@ -117,7 +108,6 @@ class __$HomePageDataCopyWithImpl<$Res> extends _$HomePageDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? posts = freezed,
-    Object? isFavorites = freezed,
     Object? lang = freezed,
   }) {
     return _then(_HomePageData(
@@ -125,10 +115,6 @@ class __$HomePageDataCopyWithImpl<$Res> extends _$HomePageDataCopyWithImpl<$Res>
           ? _value.posts
           : posts // ignore: cast_nullable_to_non_nullable
               as DataState<List<Post>>,
-      isFavorites: isFavorites == freezed
-          ? _value.isFavorites
-          : isFavorites // ignore: cast_nullable_to_non_nullable
-              as bool,
       lang: lang == freezed
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
@@ -140,19 +126,16 @@ class __$HomePageDataCopyWithImpl<$Res> extends _$HomePageDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HomePageData implements _HomePageData {
-  const _$_HomePageData(
-      {required this.posts, required this.isFavorites, required this.lang});
+  const _$_HomePageData({required this.posts, required this.lang});
 
   @override
   final DataState<List<Post>> posts;
-  @override
-  final bool isFavorites;
   @override
   final String lang;
 
   @override
   String toString() {
-    return 'HomePageData(posts: $posts, isFavorites: $isFavorites, lang: $lang)';
+    return 'HomePageData(posts: $posts, lang: $lang)';
   }
 
   @override
@@ -161,8 +144,6 @@ class _$_HomePageData implements _HomePageData {
         (other.runtimeType == runtimeType &&
             other is _HomePageData &&
             const DeepCollectionEquality().equals(other.posts, posts) &&
-            const DeepCollectionEquality()
-                .equals(other.isFavorites, isFavorites) &&
             const DeepCollectionEquality().equals(other.lang, lang));
   }
 
@@ -170,7 +151,6 @@ class _$_HomePageData implements _HomePageData {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(posts),
-      const DeepCollectionEquality().hash(isFavorites),
       const DeepCollectionEquality().hash(lang));
 
   @JsonKey(ignore: true)
@@ -182,13 +162,10 @@ class _$_HomePageData implements _HomePageData {
 abstract class _HomePageData implements HomePageData {
   const factory _HomePageData(
       {required DataState<List<Post>> posts,
-      required bool isFavorites,
       required String lang}) = _$_HomePageData;
 
   @override
   DataState<List<Post>> get posts;
-  @override
-  bool get isFavorites;
   @override
   String get lang;
   @override

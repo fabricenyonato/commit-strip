@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commit_strip/core/providers/favorites_bloc.dart';
 import 'package:commit_strip/domain/entities/post.dart';
-import 'package:commit_strip/presentation/post_page/post_page_data.dart';
-import 'package:commit_strip/presentation/widgets/star.dart';
+import 'package:commit_strip/presentation.dart';
 import 'package:commit_strip/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -94,10 +93,10 @@ class _PostPageViewState extends State<PostPageView>
           onPressed: _toggleFavorite,
           icon: star,
         ),
-        IconButton(
+        /* IconButton(
           onPressed: () {},
           icon: const FaIcon(FontAwesomeIcons.shareAlt),
-        ),
+        ), */
       ],
     );
 

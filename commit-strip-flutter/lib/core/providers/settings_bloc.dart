@@ -1,7 +1,10 @@
+import 'package:commit_strip/vars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'settings_bloc.freezed.dart';
 
@@ -14,7 +17,7 @@ class SettingsData with _$SettingsData {
     = _SettingsData;
 }
 
-const _defaultData = SettingsData(language: 'en');
+const _defaultData = SettingsData(language: defaultLanguageCode);
 
 class SettingsBloc extends Cubit<SettingsData> {
   SettingsBloc([SettingsData initialState = _defaultData])
@@ -32,5 +35,25 @@ class SettingsBloc extends Cubit<SettingsData> {
     settings.put(settingsBoxLangFiled, value);
 
     emit(state.copyWith(language: value));
+  }
+
+  void init() {
+    String defaultLang = Intl.systemLocale
+      .split('_')[0];
+
+    // print(defaultLang);
+
+    final locales =
+      [ for (var i in AppLocalizations.supportedLocales) i.languageCode ];
+
+    if (!locales.contains(defaultLang)) {
+      defaultLang = defaultLanguageCode;
+    }
+
+    final settings = Hive.box(settingsBoxName);
+    final lang = settings
+      .get(settingsBoxLangFiled, defaultValue: defaultLang) as String;
+
+    emit(state.copyWith(language: lang));
   }
 }

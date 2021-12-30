@@ -6,5 +6,8 @@
   "details": "Details",
   "errorTitile": "Something wrong",
   "errorDescription": "Can't load data from remote server. Check your internet connection and retry",
-  "retry": "Retry"
+  "retry": "Retry",
+  "home": "Home",
+  "favorites": "Favorites",
+  "noData": "No data"
 }

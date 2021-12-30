@@ -27,3 +27,5 @@ const accentColor = MaterialColor(
     700: Color(0xFF0035F7),
   }
 );
+
+const defaultLanguageCode = 'en';

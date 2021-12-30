@@ -23,7 +23,13 @@ class FavoritesBloc extends Cubit<List<Post>> {
 
       result.when(
         failure: print,
-        success: (_) {},
+        success: (_) {
+          final newState = state
+            .where((item) => item.id != post.id)
+            .toList();
+
+          emit(newState);
+        },
       );
     }
     else {

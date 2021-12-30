@@ -6,5 +6,8 @@
   "details": "Détails",
   "errorTitile": "Quelque chose ne va pas",
   "errorDescription": "Impossible de charger les données du serveur distant. Vérifiez votre connexion internet et réessayez",
-  "retry": "Réessayer"
+  "retry": "Réessayer",
+  "home": "Accueil",
+  "favorites": "Favoris",
+  "noData": "Aucune données"
 }

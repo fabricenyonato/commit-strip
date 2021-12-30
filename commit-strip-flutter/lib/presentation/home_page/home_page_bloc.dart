@@ -2,13 +2,13 @@ import 'package:commit_strip/core/data_state.dart';
 import 'package:commit_strip/domain/entities/post.dart';
 import 'package:commit_strip/domain/use_cases/get_favorites_use_case.dart';
 import 'package:commit_strip/domain/use_cases/get_posts_use_case.dart';
-import 'package:commit_strip/presentation/home_page/home_page_data.dart';
+import 'package:commit_strip/presentation.dart';
+import 'package:commit_strip/vars.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 const _defaultData = HomePageData(
   posts: DataState.success([]),
-  isFavorites: false,
-  lang: 'en',
+  lang: defaultLanguageCode,
 );
 
 class HomePageBloc extends Cubit<HomePageData> {
@@ -18,7 +18,7 @@ class HomePageBloc extends Cubit<HomePageData> {
   HomePageBloc({
     HomePageData initialState = _defaultData,
     required this.getPostsUseCase,
-    required this.getForitesUseCase
+    required this.getForitesUseCase,
   })
     : super(initialState);
 
@@ -50,26 +50,4 @@ class HomePageBloc extends Cubit<HomePageData> {
       error: (_) => null,
       success: (posts) => posts,
     );
-
-  void toggleFavorites() async {
-    final isFavorites = !state.isFavorites;
-
-    emit(state.copyWith(isFavorites: isFavorites));
-
-    if (isFavorites) {
-      emit(state.copyWith(posts: const DataState.loading()));
-
-      final result = await getForitesUseCase(lang: state.lang);
-
-      result.when(
-        failure: (error) =>
-          emit(state.copyWith(posts: DataState.error(error))),
-        success: (posts) =>
-          emit(state.copyWith(posts: DataState.success(posts))),
-      );
-    }
-    else {
-      getPosts();
-    }
-  }
 }

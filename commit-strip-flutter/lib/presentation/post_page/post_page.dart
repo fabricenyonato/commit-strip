@@ -1,8 +1,7 @@
 import 'package:commit_strip/core/providers/settings_bloc.dart';
 import 'package:commit_strip/domain/entities/post.dart';
 import 'package:commit_strip/core/providers/favorites_bloc.dart';
-import 'package:commit_strip/presentation/post_page/post_page_bloc.dart';
-import 'package:commit_strip/presentation/post_page/post_page_view.dart';
+import 'package:commit_strip/presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,13 +13,14 @@ class PostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.watch<PostPageBloc>();
+    final favoritesBloc = context.watch<FavoritesBloc>();
 
     return PostPageView(
       data: bloc.state,
       toggleFavorite: (post) =>
         _toggleFavorite(context, post),
       launch: _launch,
-      isFavorite: (post) => _isFavorite(context, post),
+      isFavorite: (post) => favoritesBloc.contains(post),
     );
   }
 
@@ -34,7 +34,4 @@ class PostPage extends StatelessWidget {
   void _launch(String url) {
     launch(url);
   }
-
-  bool _isFavorite(BuildContext context, Post post) =>
-    context.read<FavoritesBloc>().contains(post);
 }

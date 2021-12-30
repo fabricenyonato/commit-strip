@@ -10,7 +10,7 @@ import 'package:commit_strip/domain/use_cases/add_favorite_use_case.dart';
 import 'package:commit_strip/domain/use_cases/delete_favorite_use_case.dart';
 import 'package:commit_strip/domain/use_cases/get_favorites_use_case.dart';
 import 'package:commit_strip/domain/use_cases/get_posts_use_case.dart';
-import 'package:commit_strip/presentation/home_page/home_page_bloc.dart';
+import 'package:commit_strip/presentation.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';

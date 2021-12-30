@@ -1,72 +1,41 @@
 import 'package:commit_strip/core/providers/favorites_bloc.dart';
-import 'package:commit_strip/di.dart';
 import 'package:commit_strip/domain/entities/post.dart';
-import 'package:commit_strip/presentation/home_page/home_page_bloc.dart';
-import 'package:commit_strip/presentation/home_page/home_page_view.dart';
-import 'package:commit_strip/presentation/post_page/post_page.dart';
-import 'package:commit_strip/presentation/post_page/post_page_bloc.dart';
-import 'package:commit_strip/presentation/post_page/post_page_data.dart';
+import 'package:commit_strip/presentation.dart';
 import 'package:commit_strip/core/providers/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({ Key? key })
     : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<HomePageBloc>();
+    final homePageBloc = context.watch<HomePageBloc>();
 
     return HomePageView(
-      data: bloc.state,
-      onPostTap: _onPostTap,
-      changeLang: _changeLang,
-      toggleFavorites: () => bloc.toggleFavorites(),
-      refresh: () => bloc.getPosts(),
+      data: homePageBloc.state,
+      onPostTap: (post) => _onPostTap(context, post),
+      changeLang: (lang) => _changeLang(context, lang),
+      refresh: () => homePageBloc.getPosts(),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    final lang = context.read<SettingsBloc>().lang;
-    context.read<HomePageBloc>().init(lang);
-  }
-
-  void _onPostTap(Post post) {
+  void _onPostTap(BuildContext context, Post post) {
     final posts = context.read<HomePageBloc>().posts;
-
     if (posts == null) return;
 
-    final index = posts
-      .indexWhere((item) => item.id == post.id);
-
-    if (index == -1) return;
-
-    final page = BlocProvider<PostPageBloc>(
-      create: (_) => PostPageBloc(
-        initialState: PostPageData(
-          posts: posts,
-          initialIndex: index,
-        ),
-        addForiteUseCase: getit()
-      ),
-      child: const PostPage(),
-    );
-
-    Navigator.push(context, MaterialPageRoute(
-      builder: (_) => page,
-    ));
+    Navigator.of(context)
+      .pushNamed(
+        '/post_details',
+        arguments: {
+          'posts': posts,
+          'currentPost': post,
+        },
+      );
   }
 
-  void _changeLang(String lang) {
+  void _changeLang(BuildContext context, String lang) {
     final config = context.read<SettingsBloc>();
 
     if (config.lang == lang) return;
