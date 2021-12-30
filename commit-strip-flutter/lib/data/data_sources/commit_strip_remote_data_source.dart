@@ -15,7 +15,7 @@ class CommitStripRemoteDataSourceImpl implements CommitStripRemoteDataSource {
 
   @override
   Future<Result<List<Post>, dynamic>> posts() async {
-    const path = 'https://raw.githubusercontent.com/fabricenyonato/commit-strip/main/commit-strip-crawler/data/commit-strip.json';
+    const path = 'https://raw.githubusercontent.com/fabricenyonato/commit-strip/main/commit-strip-scraper/data/commit-strip.json';
 
     try {
       final response = await dio.get(path);
